@@ -1,31 +1,23 @@
 import React, {Component} from "react"
-import './divComponent.css'
-import '../button/buttonComponent'
-import AddComponent from "../addButton/addComponent"
+import '../header/headerComponent.css'
+import DeleteButtonComponent from "./deleteButtonComponent";
 
 export default class DivComponent extends Component {
     constructor(props) {
-        super(props)
-        this.state = {
-            
-        }
+        super(props);
     }
 
-    render() {
+    render(){
         return(
-            <>
-            <div id="app-container">
             <div id="toDoWrapper">
                 <div id="description">
                     <h4>Description</h4>
                 </div>
                 <div id="check">
                     <input type="checkbox" id="check"/>
-                    <button class="delete">Delete</button>
+                    <DeleteButtonComponent methodToRun={this.props.methodToRun}></DeleteButtonComponent>
                 </div>
             </div>
-        </div>        
-        </>
-        )   
+        )
     }
 }

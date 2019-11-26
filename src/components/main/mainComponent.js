@@ -1,49 +1,56 @@
 import React, {Component} from "react"
-import ButtonComponent from '../button/buttonComponent';
-import DivComponent from "../divComponents/divComponent";
-import AddComponent from "../addButton/addComponent";
-import HeaderComponent from "../header/headerComponent"
+import DivComponent from "../main/divComponent";
+import AddButton from "../main/addComponent";
+
+
 
 export default class MainComponent extends Component {
     constructor(props) {
-        super(props)
-
+        super(props);
         this.state = {
-            showHeader: false,
-            items: [{key: 0, item: new DivComponent()}],
-            currentItem: {key: 0, item: new DivComponent()},
+           Elements: [
+            {id:0, description : 'Description'},
+            {id:1, description : 'Description'},
+            {id:2, description : 'Description'},
+            {id:3, description : 'Description'},
+        ],
+        nextElementId: 4,
     }
-}
 
-toggleHeader = () => {
-    this.setState({ showHeader: !this.state.showHeader});
-}
-
-
-
-addAnotherDiv = () => {
-    const newItem = {key: Date.now(), item: new DivComponent()};
-    this.setState({
-        items: [...this.state.items, newItem],
-        currentItem: null
-    })
-}
-
-render() {
-    return (
-        <>
-        <ButtonComponent methodToRun={this.toggleHeader} 
-                             name = {this.state.showHeader ? 'hide' : 'show'}>
-            </ButtonComponent>
-            { this.state.showHeader ? <HeaderComponent title="Header"></HeaderComponent> : null}
-            
-            <DivComponent></DivComponent>
-            
-            <AddComponent 
-            items = {this.state.items}
-            addAnotherDiv = {this.addAnotherDiv}>
-            </AddComponent>   
-        </>);
+    this.addComponent = this.addComponent.bind(this);
+    this.deleteComponent = this.deleteComponent.bind(this);
     
+}
+
+    addComponent() {
+        this.state.Elements.push({
+            id:this.state.nextElementId,
+            description: 'Description'
+        })
+        this.setState({nextElementId: (this.state.nextElementId + 1)});
+    }
+
+    deleteComponent(id){
+        this.setState(state => ({
+            Elements: state.Elements.filter(element => element.id !== id)
+        }));
+    }
+
+    render(){
+        return (
+        <>
+            <AddButton
+            methodToRun={this.addComponent}
+            ></AddButton>
+            {this.state.Elements.map((element)=> {
+                return <DivComponent
+                    key={element.id} 
+                    description={element.description} 
+                    methodToRun={() => this.deleteComponent(element.id)}>
+                    </DivComponent> 
+            })}     
+        </>
+        );
     }
 }
+
