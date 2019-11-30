@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import DivComponent from "../main/divComponent";
 import AddButton from "../main/addComponent";
-import ApiCallService from "../../services/apiCall";
+
 
 
 
@@ -18,8 +18,6 @@ export default class MainComponent extends Component {
             ],
             nextElementId: 4,
         };
-
-        this.url = 'http://localhost:3000/todo';
         this.addComponent = this.addComponent.bind(this);
         this.deleteComponent = this.deleteComponent.bind(this);
     
