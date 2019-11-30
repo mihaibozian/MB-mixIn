@@ -1,33 +1,38 @@
 import React, {Component} from "react"
 import DivComponent from "../main/divComponent";
 import AddButton from "../main/addComponent";
+import ApiCallService from "../../services/apiCall";
 
 
 
 export default class MainComponent extends Component {
     constructor(props) {
         super(props);
+        
         this.state = {
-           Elements: [
-            {id:0, description : 'Description'},
-            {id:1, description : 'Description'},
-            {id:2, description : 'Description'},
-            {id:3, description : 'Description'},
-        ],
-        nextElementId: 4,
-    }
+            Elements: [
+                {id:0, description : 'Description'},
+                {id:1, description : 'Description'},
+                {id:2, description : 'Description'},
+                {id:3, description : 'Description'},
+            ],
+            nextElementId: 4,
+        };
 
-    this.addComponent = this.addComponent.bind(this);
-    this.deleteComponent = this.deleteComponent.bind(this);
+        this.url = 'http://localhost:3000/todo';
+        this.addComponent = this.addComponent.bind(this);
+        this.deleteComponent = this.deleteComponent.bind(this);
     
 }
 
-    addComponent() {
-        this.state.Elements.push({
-            id:this.state.nextElementId,
-            description: 'Description'
-        })
-        this.setState({nextElementId: (this.state.nextElementId + 1)});
+    addComponent(){
+                
+                this.state.Elements.push({
+                    id:this.state.nextElementId,
+                    description: 'Description'
+                })
+                this.setState({nextElementId: (this.state.nextElementId + 1)})
+                
     }
 
     deleteComponent(id){
